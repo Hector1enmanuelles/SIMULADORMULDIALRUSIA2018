@@ -2,24 +2,26 @@
 # -*- coding: utf-8 -*-
 # coding=utf-8
 
-# Import pygame and libraries
-from pygame.locals import *
+# Paquetes y Librerias
 from random import randrange
-import os
+from pygame.locals import *
+import datetime
 import pygame
 import time
-import datetime
-
-# Import pygameMenu
-import pygameMenu
+import os
+# Importa el paquete pygameMenu
 from pygameMenu.locals import *
-
-# Import files for play
+import pygameMenu
+# Importa los archivos para el Juego
 from equipo import Equipo
 import main
 import threading
 
-RANKINGS = [('1-10',1),('11-20',2),('21-30',3),('31-40',4),('41-50',5)]
+
+
+RANKING_SELECCIONES = [('1-10',1),('11-20',2),('21-30',3),('31-40',4),('41-50',5),
+                       ('51-60',6),('61-70',7),('71-80',8),('81-90',9),
+                       ('91-100',10)]
 
 EQUIPOS = main.lista_equipos()
 FORMACIONES = main.lista_formaciones()
@@ -48,7 +50,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 # Create pygame screen and objects
 surface = pygame.display.set_mode(WINDOW_SIZE)
-pygame.display.set_caption('Simulator de Futbol Mundial Russia 2018')
+
 clock = pygame.time.Clock()
 dt = 1 / FPS
 
@@ -130,11 +132,7 @@ def display_final(font):
     while True:
 
         # Clock tick
-        clock.tick(60)
-
-        # Pass events to main_menu
-        main_menu.mainloop(eventos_de_teclado())
-        
+        clock.tick(60)       
         surface.blit(f_salir, ((WINDOW_SIZE[0] - f_width) / 2, WINDOW_SIZE[1] / 1.1))
         pygame.display.flip()
 
@@ -303,10 +301,10 @@ play_menu = pygameMenu.Menu(surface,
                             )
 
 play_menu.add_selector('Equipo  local', EQUIPOS, onreturn=None, onchange=select_equipo1)
-play_menu.add_selector('Ranking  local',RANKINGS, onreturn=None, onchange=rank_equipo1)
+play_menu.add_selector('Ranking  local',RANKING_SELECCIONES, onreturn=None, onchange=rank_equipo1)
 play_menu.add_selector('Formacion  local',FORMACIONES, onreturn=None, onchange=form_equipo1)
 play_menu.add_selector('Equipo  visitante', EQUIPOS,onreturn=None, onchange=select_equipo2)
-play_menu.add_selector('Ranking  visitante',RANKINGS, onreturn=None, onchange=rank_equipo2)
+play_menu.add_selector('Ranking  visitante',RANKING_SELECCIONES, onreturn=None, onchange=rank_equipo2)
 play_menu.add_selector('Formacion  visitante',FORMACIONES, onreturn=None, onchange=form_equipo2)
 
 play_menu.add_option('Jugar ', jugar_function, EQUIPO1, EQUIPO2, RANK_EQ1, RANK_EQ2, FORM_EQ1,FORM_EQ2,
