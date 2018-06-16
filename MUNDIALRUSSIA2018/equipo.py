@@ -28,13 +28,13 @@ class Equipo(object):
 
 	def __porcentajes_ranking(self):
 		if self.ranking == 1:
-			return {'ganar': 0.75, 'anotar': 0.60, 'encajar': 0.20, 'pase':0.60}
+			return {'ganar': 0.80, 'anotar': 0.70, 'encajar': 0.10, 'pase':0.70}
 		elif self.ranking == 2:
-			return {'ganar': 0.60, 'anotar': 0.50, 'encajar': 0.30, 'pase':0.50}
+			return {'ganar': 0.70, 'anotar': 0.60, 'encajar': 0.15, 'pase':0.60}
 		elif self.ranking == 3:
-			return {'ganar': 0.50, 'anotar': 0.40, 'encajar': 0.40, 'pase':0.40}
+			return {'ganar': 0.60, 'anotar': 0.50, 'encajar': 0.20, 'pase':0.50}
 		elif self.ranking == 4:
-			return {'ganar': 0.40, 'anotar': 0.30, 'encajar': 0.45, 'pase':0.35}
+			return {'ganar': 0.55, 'anotar': 0.40, 'encajar': 0.30, 'pase':0.40}
 		else:
 			return {'ganar': 0.30, 'anotar': 0.25, 'encajar': 0.50, 'pase':0.30}
 
