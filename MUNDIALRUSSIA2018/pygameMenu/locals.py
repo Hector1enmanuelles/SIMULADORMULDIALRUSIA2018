@@ -3,7 +3,7 @@
 LOCALS
 Local constants.
 
-Copyright (C) 2017-2018 Pablo Pizarro @ppizarror
+Copyright (C) 2017 Pablo Pizarro @ppizarror
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,34 +25,35 @@ class PymenuAction(object):
         assert isinstance(action, int)
         self._action = action
 
+    # noinspection PyProtectedMember
     def __eq__(self, other):
         if isinstance(other, PymenuAction):
             return self._action == other._action
         return False
 
 
-# Events
-PYGAME_MENU_BACK = PymenuAction(0)  # Menu back
-PYGAME_MENU_CLOSE = PymenuAction(1)  # Close menu
-PYGAME_MENU_DISABLE_CLOSE = PymenuAction(10)  # Menu disable closing
-PYGAME_MENU_EXIT = PymenuAction(3)  # Menu exit program
-PYGAME_MENU_RESET = PymenuAction(4)  # Menu reset
+# noinspection PyProtectedMember
+def _eq_action(action1, action2):
+    return action1._action == action2._action
 
-# Other
-PYGAMEMENU_PYMENUACTION = "<class 'pygameMenu.locals._PymenuAction'>"
-PYGAMEMENU_TEXT_NEWLINE = ''  # Text newline on TextMenu object
-PYGAMEMENU_TYPE_SELECTOR = PymenuAction(2)  # Type of selector
 
-# Joypad
-JOY_DEADZONE = 0.5
-JOY_AXIS_Y = 1
-JOY_AXIS_X = 0
+# Menu back
+PYGAME_MENU_BACK = PymenuAction(0)
 
-JOY_CENTERED = (0, 0)
-JOY_UP = (0, 1)
-JOY_DOWN = (0, -1)
-JOY_RIGHT = (1, 0)
-JOY_LEFT = (-1, 0)
+# Close menu
+PYGAME_MENU_CLOSE = PymenuAction(1)
 
-JOY_BUTTON_SELECT = 0
-JOY_BUTTON_BACK = 1
+# Menu exit program
+PYGAME_MENU_EXIT = PymenuAction(3)
+
+# Menu disable closing
+PYGAME_MENU_DISABLE_CLOSE = PymenuAction(10)
+
+# Menu reset
+PYGAME_MENU_RESET = PymenuAction(4)
+
+# Type of selector
+_PYGAME_TYPE_SELECTOR = PymenuAction(2)
+
+# Text newline on TextMenu object
+TEXT_NEWLINE = ''

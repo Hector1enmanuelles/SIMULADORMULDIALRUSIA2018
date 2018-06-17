@@ -2,26 +2,25 @@
 # -*- coding: utf-8 -*-
 # coding=utf-8
 
-# Paquetes y Librerias
-from random import randrange
+# Import pygame and libraries
 from pygame.locals import *
-import datetime
+from random import randrange
+import os
 import pygame
 import time
-import os
-# Importa el paquete pygameMenu
-from pygameMenu.locals import *
+import datetime
+
+# Import pygameMenu
 import pygameMenu
-# Importa los archivos para el Juego
+from pygameMenu.locals import *
+
+# Import files for play
 from equipo import Equipo
 import main
 import threading
 
-
-
-RANKING_SELECCIONES = [('1-10',1),('11-20',2),('21-30',3),('31-40',4),('41-50',5),
-                       ('51-60',6),('61-70',7),('71-80',8),('81-90',9),
-                       ('91-100',10)]
+RANKINGS = [('1-10',1),('11-20',2),('21-30',3),('31-40',4),('41-50',5),
+            ('51-60',6),('61,70',7),('71,80',8),('81-90',9),('91,100',10)]
 
 EQUIPOS = main.lista_equipos()
 FORMACIONES = main.lista_formaciones()
@@ -31,10 +30,10 @@ ETAPAS =  main.lista_etapas()
 
 ABOUT = ['PygameMenu {0}'.format(pygameMenu.__version__),
          'Author: {0}'.format(pygameMenu.__author__),
-         PYGAMEMENU_TEXT_NEWLINE,
+         TEXT_NEWLINE,
          'Soccer Simulator {0}'.format("v1.0"),
          'Developers:',
-         'Hector Medoza']
+         'Anderson Díaz','Héctor Mendoza']
 
 COLOR_BACKGROUND = (128, 0, 128)
 COLOR_BLACK = (0, 0, 0)
@@ -50,7 +49,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 # Create pygame screen and objects
 surface = pygame.display.set_mode(WINDOW_SIZE)
-
+pygame.display.set_caption('Simulador del Mundial de Futbol Russia 2018')
 clock = pygame.time.Clock()
 dt = 1 / FPS
 
@@ -101,8 +100,8 @@ def etapas(e):
 
 def load_image(filename, transparent=False):
     try: image = pygame.image.load(filename)
-    except(pygame.error, 'ERROR'):
-            raise(SystemExit,'ERROR')
+    except(pygame.error,"Error"):
+            raise(SystemExit, "Error")
     image = image.convert()
     if transparent:
             color = image.get_at((0,0))
@@ -122,8 +121,8 @@ def eventos_de_teclado():
     return playevents
 
 def display_final(font):
-    exit_font = pygame.font.Font(pygameMenu.fonts.FONT_NEVIS, 20)
-    sonido = pygame.mixer.Sound("resources/n.mp3")
+    exit_font = pygame.font.Font(pygameMenu.fonts.FONT_OXYGEN, 20)
+    sonido = pygame.mixer.Sound("resources/audio/n.mp3")
     sonido.play() # Pito final
 
     f_salir = exit_font.render('Presione Esc para salir', 2, COLOR_BLACK)
@@ -132,7 +131,11 @@ def display_final(font):
     while True:
 
         # Clock tick
-        clock.tick(60)       
+        clock.tick(60)
+
+        # Pass events to main_menu
+        main_menu.mainloop(eventos_de_teclado())
+        
         surface.blit(f_salir, ((WINDOW_SIZE[0] - f_width) / 2, WINDOW_SIZE[1] / 1.1))
         pygame.display.flip()
 
@@ -159,8 +162,8 @@ def display_game(Equipo1, Equipo2, minutos, background, ball, prediccion, fecha,
     pases_team2 = font.render('Pases exitosos: ' + str(Equipo2.pases_exitosos), 1, COLOR_WHITE)
 
     # Dibujar tiempo
-    time_string = str(int(minutos)) + " min"
-    time_blit = timer_font.render(time_string, 1, COLOR_WHITE)
+    time_string = str(int(minutos)) + " minutos"
+    time_blit = timer_font.render																																										(time_string, 1, COLOR_WHITE)
     time_blit_size = time_blit.get_size()
 
     # Actualizo la pantalla
@@ -226,14 +229,14 @@ def jugar_function(team1, team2, rank_eq1, rank_eq2, form_eq1, form_eq2, fecha, 
     defiende_primero = result_sorteo["gano_cancha"]
 
     # Carga la imagen de fondo 
-    background_image = load_image('resources/bg.jpg')
-    ball_image = load_image('resources/SoccerBall.png', True)
+    background_image = load_image('resources/imagenes/bg.jpg')
+    ball_image = load_image('resources/imagenes/ball.png', True)
     f_prediccion = font.render("Favorito: " + prediccion, 1, COLOR_WHITE)
     f_fecha = font.render(fecha, 1, COLOR_WHITE)
     f_hora = font.render(hora + "h", 1, COLOR_WHITE)
     f_etapa = font.render(etapa, 1, COLOR_WHITE)
 
-    pygame.mixer.music.load("resources/crowdSound.mp3")
+    pygame.mixer.music.load("resources/audio/crowdSound.mp3")
     pygame.mixer.music.set_volume(0.8)
     # Comienza el sonido ambiente
     pygame.mixer.music.play()
@@ -286,7 +289,7 @@ def main_background():
 play_menu = pygameMenu.Menu(surface,
                             window_width=WINDOW_SIZE[0],
                             window_height=WINDOW_SIZE[1],
-                            font=pygameMenu.fonts.FONT_NEVIS,
+                            font=pygameMenu.fonts.FONT_OXYGEN,
                             title='Menu de juego',
                             menu_alpha=100,
                             font_size=30,
@@ -301,21 +304,21 @@ play_menu = pygameMenu.Menu(surface,
                             )
 
 play_menu.add_selector('Equipo  local', EQUIPOS, onreturn=None, onchange=select_equipo1)
-play_menu.add_selector('Ranking  local',RANKING_SELECCIONES, onreturn=None, onchange=rank_equipo1)
+play_menu.add_selector('Ranking  local',RANKINGS, onreturn=None, onchange=rank_equipo1)
 play_menu.add_selector('Formacion  local',FORMACIONES, onreturn=None, onchange=form_equipo1)
 play_menu.add_selector('Equipo  visitante', EQUIPOS,onreturn=None, onchange=select_equipo2)
-play_menu.add_selector('Ranking  visitante',RANKING_SELECCIONES, onreturn=None, onchange=rank_equipo2)
+play_menu.add_selector('Ranking  visitante',RANKINGS, onreturn=None, onchange=rank_equipo2)
 play_menu.add_selector('Formacion  visitante',FORMACIONES, onreturn=None, onchange=form_equipo2)
 
 play_menu.add_option('Jugar ', jugar_function, EQUIPO1, EQUIPO2, RANK_EQ1, RANK_EQ2, FORM_EQ1,FORM_EQ2,
-                    FECHA, HORA, ETAPA, pygame.font.Font(pygameMenu.fonts.FONT_NEVIS, 30))
+                    FECHA, HORA, ETAPA, pygame.font.Font(pygameMenu.fonts.FONT_OXYGEN, 30))
 
 # ABOUT MENU
 about_menu = pygameMenu.TextMenu(surface,
                                  window_width=WINDOW_SIZE[0],
                                  window_height=WINDOW_SIZE[1],
-                                 font=pygameMenu.fonts.FONT_NEVIS,
-                                 font_title=pygameMenu.fonts.FONT_NEVIS,
+                                 font=pygameMenu.fonts.FONT_OXYGEN,
+                                 font_title=pygameMenu.fonts.FONT_OXYGEN,
                                  title='Acerca',
                                  # Disable menu close (ESC button)
                                  onclose=PYGAME_MENU_DISABLE_CLOSE,
@@ -332,15 +335,15 @@ about_menu = pygameMenu.TextMenu(surface,
                                  bgfun=main_background)
 for m in ABOUT:
     about_menu.add_line(m)
-about_menu.add_line(PYGAMEMENU_TEXT_NEWLINE)
+about_menu.add_line(TEXT_NEWLINE)
 about_menu.add_option('Volver al menu', PYGAME_MENU_BACK)
 
 # MAIN MENU
 main_menu = pygameMenu.Menu(surface,
                             window_width=WINDOW_SIZE[0],
                             window_height=WINDOW_SIZE[1],
-                            font=pygameMenu.fonts.FONT_NEVIS,
-                            title='Menu principal',
+                            font=pygameMenu.fonts.FONT_OXYGEN,
+                            title='Inicio',
                             menu_alpha=100,
                             font_size=30,
                             menu_width=int(WINDOW_SIZE[0] * 0.8),

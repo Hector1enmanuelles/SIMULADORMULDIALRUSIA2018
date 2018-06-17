@@ -3,7 +3,7 @@
 FONTS
 Menu avaiable fonts.
 
-Copyright (C) 2017-2018 Pablo Pizarro @ppizarror
+Copyright (C) 2017 Pablo Pizarro @ppizarror
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@ GNU General Public License for more details.
 # Get actual folder
 import os
 
-__actualpath = str(os.path.abspath(
-    os.path.dirname(__file__))).replace('\\', '/')
+__actualpath = str(os.path.abspath(os.path.dirname(__file__))).replace('\\', '/')
 __fontdir = '{0}/fonts/{1}.ttf'
 
 # Avaiable fonts
@@ -28,3 +27,5 @@ FONT_BEBAS = __fontdir.format(__actualpath, 'bebas')
 FONT_FRANCHISE = __fontdir.format(__actualpath, 'franchise')
 FONT_MUNRO = __fontdir.format(__actualpath, 'munro')
 FONT_NEVIS = __fontdir.format(__actualpath, 'nevis')
+FONT_NEUROPOL = __fontdir.format(__actualpath, 'neuropol')
+FONT_OXYGEN = __fontdir.format(__actualpath, 'oxygen')

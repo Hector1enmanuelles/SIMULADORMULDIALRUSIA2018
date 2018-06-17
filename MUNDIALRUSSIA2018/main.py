@@ -118,11 +118,10 @@ def lista_horas():
 	return horas_partido
 
 def lista_etapas():
-	etapas_partido= [('Fase de Grupos','Fase de Grupos'),('8vos de Final','8vos de Final'),('4tos de Final','4tos de Final'),
+	return [('Fase de Grupos','Fase de Grupos'),('8vos de Final','8vos de Final'),('4tos de Final','4tos de Final'),
     ('Semifinales','Semifinales'),('Tercer puesto','Tercer puesto'),('Final','Final')]
-	return etapas_partido
 
 def lista_formaciones():
-	formaciones = [('4-4-2','4-4-2'),('4-3-3','4-3-3'),('4-2-3-1','4-2-3-1'),('4-3-1-2','4-3-1-2'),
-				('3-4-3','3-4-3'),('3-5-2','3-5-2'),('5-3-1','5-3-1'),('5-4-1','5-4-1')]
+	formaciones = [('4-4-2','4-4-2'),('4-3-3','4-3-3'),('4-2-3-1','4-2-3-1'),('4-3-1-2','4-3-1-2'),('3-4-3','3-4-3'),
+	('5-3-1','5-3-1')]
 	return formaciones
